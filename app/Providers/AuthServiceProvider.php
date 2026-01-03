@@ -24,5 +24,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         // Passport::routes();
+
+        Passport::tokensCan([
+            'admin'  => 'Accès administrateur',
+            'client' => 'Accès client',
+        ]);
+
+        Passport::setDefaultScope([
+            'client'
+        ]);
     }
 }
