@@ -44,5 +44,14 @@ php artisan cache:clear || true
 # Run migrations (non-blocking failure allowed)
 php artisan migrate --force || true
 
+# Generate Passport keys only if missing
+if [ ! -f storage/oauth-private.key ] || [ ! -f storage/oauth-public.key ]; then
+  echo "Passport keys not found — generating"
+  php artisan passport:keys --force
+else
+  echo "Passport keys already exist — skipping generation"
+fi
+
+
 echo "Starting Laravel application..."
 exec "$@"
